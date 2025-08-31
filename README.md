@@ -3,7 +3,7 @@ Atividades
 
 # 1 - 
 
-## Define o limite de uso de CPU/Lista processos ordenados por uso de CPU/ imprime cabeçalho / imprime processos acima do limite/ espera 5 segundos antes de repetir
+## Define o limite de uso de CPU/Lista processos ordenados por uso de CPU/ imprime cabeçalho / imprime processos acima do limite/ espera 5 segundos antes de repetir/ mostra ao usuário a opção de parar o script(Ctr+C).
 ```
 #!/bin/bash
 
