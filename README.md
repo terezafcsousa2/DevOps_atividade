@@ -31,6 +31,7 @@ done
 ## Bash
 ## Salve o script como: monitor_cpu.sh
 ## Dê permissão de execução: chmod +x monitor_cpu.sh
+##
 
 
 ## 2 - Desenvolva um script que utiliza comandos como ps e sort para exibir os processos que estão consumindo mais memória.
@@ -52,7 +53,7 @@ ps -eo pid,%mem,comm --sort=-%mem | head -n $((NUM_PROC + 1))
 ## Salve como top_mem.sh
 ## Torne executável: chmod +x top_mem.sh
 ## Execute: ./top_mem.sh
-
+##
 
 ## 3 - Crie um script que verifica se um processo específico está em execução e exibe seu status.
 # Nome do processo a verificar (pode ser o nome do comando, como "firefox" ou "nginx")
@@ -78,13 +79,50 @@ fi
 ```
 ## Salve como verifica_processo.sh
 ## execute passando o nome do processo como argumento 
-## ./verifica processo.sh Firefox
+## ./verifica processo.sh firefox
+##
 
 # 4 - Elabore um script para analisar os logs do sistema em busca de mensagens de erro relacionadas a processos.
 ```
+#!/bin/bash
+
+# Verifica se o usuário informou o nome do processo
+PROCESSO="$1"
+
+if [ -z "$PROCESSO" ]; then
+    echo "Uso: $0 <nome_do_processo>"
+    exit 1
+fi
+
+
+LOGFILE="/var/log/syslog"
+[ -f "$LOGFILE" ] || LOGFILE="/var/log/messages"
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Arquivo de log não encontrado."
+    exit 2
+fi
+echo “Analisando erros relacionados ao processo '$PROCESSO' em $LOGFILE..."
+
+# Filtra mensagens de erro relacionadas ao processo
+grep -i "$PROCESSO" "$LOGFILE" | grep -iE "error|fail|fatal|segfault" > /tmp/erros_$PROCESSO.log
+
+if [ -s /tmp/erros_$PROCESSO.log ]; then
+    echo " Erros encontrados:"
+    cat /tmp/erros_$PROCESSO.log
+else
+    echo " Nenhum erro encontrado relacionado ao processo '$PROCESSO'."
+fi
+
+
+
 ```
+## Salve o script como analisa_erros.sh
+##Execute com o nome do processo: ./analisa_erros.sh apache2
+
 # 5 - Crie um script para monitorar as mensagens de erro no log do sistema em intervalos regulares usando cron jobs. O script deve registrar em um arquivo as últimas 5 linhas de mensagens de erro, possibilitando uma visão periódica da atividade do sistema.
 ```
+
 ```
 
 
