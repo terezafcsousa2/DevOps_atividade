@@ -95,8 +95,8 @@ if [ -z "$PROCESSO" ]; then
 fi
 
 
-LOGFILE="/var/log/syslog"
-[ -f "$LOGFILE" ] || LOGFILE="/var/log/messages"
+LOGFILE="/var/seulog/syslog"
+[ -f "$LOGFILE" ] || LOGFILE="/var/seulog/messages"
 
 if [ ! -f "$LOGFILE" ]; then
     echo "Arquivo de log não encontrado."
@@ -118,12 +118,31 @@ fi
 
 ```
 ## Salve o script como analisa_erros.sh
-##Execute com o nome do processo: ./analisa_erros.sh apache2
+## Execute com o nome do processo: ./analisa_erros.sh apache2
 
 # 5 - Crie um script para monitorar as mensagens de erro no log do sistema em intervalos regulares usando cron jobs. O script deve registrar em um arquivo as últimas 5 linhas de mensagens de erro, possibilitando uma visão periódica da atividade do sistema.
 ```
+#!/bin/bash
+
+LOGFILE="/var/log/syslog"
+[ -f "$LOGFILE" ] || LOGFILE="/var/seulog/messages"
+
+# Arquivo onde os erros serão registrados
+DESTINO="/var/seulog/erros_monitorados.log"
+
+# Timestamp atual
+echo "===== $(date '+%Y-%m-%d %H:%M:%S') =====" >> "$DESTINO"
+
+# Captura as últimas 5 mensagens de erro
+grep -iE "error|fail|fatal|segfault" "$LOGFILE" | tail -n 5 >> "$DESTINO"
+echo "" >> "$DESTINO"
+
+Salve como monitor_erros.sh
+
+chmod +x monitor_erros.sh
 
 ```
+
 
 
 # DEPENDÊNCIA
