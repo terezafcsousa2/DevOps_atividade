@@ -1,20 +1,19 @@
-# DevOps_atividade
+# DevOps_atividades
 Atividades
 
-# 1 - Crie um script que utiliza comandos como ps e grep para monitorar os processos que estão utilizando uma porcentagem significativa da CPU.
+# 1 - 
 
 ## Define o limite de uso de CPU/Lista processos ordenados por uso de CPU/ imprime cabeçalho / imprime processos acima do limite/ espera 5 segundos antes de repetir
-
-<div>
-!/bin/bash
+```
+#!/bin/bash
 
 CPU_LIMITE=20
 
-<p>echo "Monitorando processos com uso de CPU acima de $CPU_LIMITE%..."
-<p>echo "Pressione Ctrl+C para parar."
+echo "Monitorando processos com uso de CPU acima de $CPU_LIMITE%..."
+echo "Pressione Ctrl+C para parar."
 
 while true; do
-    echo "-----------------------------"
+    echo "----------------------------"
     echo "Horário: $(date)"
     echo "Processos com uso de CPU > $CPU_LIMITE%:"
     
@@ -26,7 +25,13 @@ while true; do
 
     sleep 5 
 done
-</div>
+
+
+```
+## Bash
+## Salve o script como: monitor_cpu.sh
+## Dê permissão de execução: chmod +x monitor_cpu.sh
+
 
 # 2 - Desenvolva um script que utiliza comandos como ps e sort para exibir os processos que estão consumindo mais memória.
 # 3 - Crie um script que verifica se um processo específico está em execução e exibe seu status.
